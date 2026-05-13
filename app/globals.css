@@ -24,3 +24,63 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.matcha-star {
+  --matcha-star-drift: 0px;
+  --matcha-star-rotate: 0deg;
+  --matcha-star-start-rotate: 0deg;
+  animation-name: matcha-star-float;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+  opacity: 0;
+  transform-origin: center;
+  will-change: opacity, transform;
+}
+
+@keyframes matcha-star-float {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 28px, 0) scale(0.72) rotate(var(--matcha-star-start-rotate));
+  }
+
+  18% {
+    opacity: 0.95;
+  }
+
+  70% {
+    opacity: 0.95;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--matcha-star-drift), -128px, 0) scale(1.06) rotate(var(--matcha-star-rotate));
+  }
+}
+
+@keyframes matcha-star-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  20% {
+    opacity: 0.9;
+  }
+
+  80% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .matcha-star {
+    animation-delay: 0ms !important;
+    animation-duration: 900ms !important;
+    animation-name: matcha-star-fade;
+  }
+}
