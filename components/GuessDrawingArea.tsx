@@ -180,13 +180,14 @@ function MatchaStarBurst() {
 
 export type GuessDrawingAreaProps = {
   onPhaseChange?: (phase: Phase) => void;
+  onDrawingStart?: () => void;
 };
 
 /**
  * Mug + coffee circle with optional drawing canvas, and bottom prompt / toolbar flow.
  */
 export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
-  const { onPhaseChange } = props;
+  const { onDrawingStart, onPhaseChange } = props;
   const [phase, setPhase] = useState<Phase>("prompt");
   const [prompt, setPrompt] = useState("");
   const [draft, setDraft] = useState("");
@@ -195,6 +196,7 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
   const drawingRef = useRef(false);
+  const hasStartedDrawingRef = useRef(false);
   const lastRef = useRef<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
@@ -268,6 +270,10 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
     const pt = clientToCanvas(e.clientX, e.clientY);
     if (!pt) return;
     drawingRef.current = true;
+    if (!hasStartedDrawingRef.current) {
+      hasStartedDrawingRef.current = true;
+      onDrawingStart?.();
+    }
     lastRef.current = pt;
   };
 
@@ -297,6 +303,7 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
   const submitPrompt = () => {
     const trimmed = draft.trim();
     if (!trimmed) return;
+    hasStartedDrawingRef.current = false;
     setPrompt(trimmed);
     setPhase("draw");
   };
