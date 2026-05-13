@@ -9,9 +9,22 @@ import {
 } from "react";
 
 type Phase = "prompt" | "draw";
+type DrawingTool = "brush" | "eraser";
+type Point = { x: number; y: number };
+
+const STAR_ASSETS = {
+  purple: "/assets/star-purple.svg",
+  green: "/assets/star-green.svg",
+  yellow: "/assets/star-yellow.svg",
+  pink: "/assets/star-pink.svg",
+  orange: "/assets/star-orange.svg",
+  blue: "/assets/star-blue.svg",
+} as const;
+
+type StarAsset = (typeof STAR_ASSETS)[keyof typeof STAR_ASSETS];
 
 type MatchaStar = {
-  src: "/assets/star-1.svg" | "/assets/star-2.svg";
+  src: StarAsset;
   left: number;
   top: number;
   size: number;
@@ -28,23 +41,23 @@ type MatchaStarStyle = React.CSSProperties & {
 };
 
 const MATCHA_STARS = [
-  { src: "/assets/star-2.svg", left: -7, top: 416, size: 24, drift: -16, rotate: -18, delay: 20, duration: 1900 },
-  { src: "/assets/star-1.svg", left: 271, top: 589, size: 49, drift: 24, rotate: 16, delay: 180, duration: 2200 },
-  { src: "/assets/star-1.svg", left: 102, top: 590, size: 49, drift: -20, rotate: -10, delay: 110, duration: 2100 },
-  { src: "/assets/star-1.svg", left: 93, top: 106, size: 49, drift: 16, rotate: 14, delay: 80, duration: 1900 },
-  { src: "/assets/star-1.svg", left: 31, top: 319, size: 56, drift: -26, rotate: -14, delay: 260, duration: 2300 },
-  { src: "/assets/star-1.svg", left: 295, top: 289, size: 49, drift: 18, rotate: 18, delay: 140, duration: 2000 },
-  { src: "/assets/star-1.svg", left: 200, top: 135, size: 56, drift: -18, rotate: -18, delay: 210, duration: 2300 },
-  { src: "/assets/star-2.svg", left: 38, top: 223, size: 42, drift: 22, rotate: 12, delay: 60, duration: 2000 },
-  { src: "/assets/star-1.svg", left: 320, top: 155, size: 49, drift: 28, rotate: -12, delay: 310, duration: 2200 },
-  { src: "/assets/star-1.svg", left: 142, top: 427, size: 49, drift: -14, rotate: 18, delay: 230, duration: 2100 },
-  { src: "/assets/star-1.svg", left: 150, top: 540, size: 49, drift: 18, rotate: -16, delay: 330, duration: 2300 },
-  { src: "/assets/star-1.svg", left: 214, top: 347, size: 56, drift: -22, rotate: 10, delay: 40, duration: 2200 },
-  { src: "/assets/star-2.svg", left: 360, top: 256, size: 33, drift: 16, rotate: 18, delay: 270, duration: 1900 },
-  { src: "/assets/star-1.svg", left: 62, top: 45, size: 49, drift: -18, rotate: -12, delay: 150, duration: 2100 },
-  { src: "/assets/star-1.svg", left: 252, top: 436, size: 49, drift: 26, rotate: 14, delay: 90, duration: 2200 },
-  { src: "/assets/star-1.svg", left: 301, top: 460, size: 49, drift: -16, rotate: -18, delay: 380, duration: 2400 },
-  { src: "/assets/star-1.svg", left: -7, top: 549, size: 56, drift: 22, rotate: 12, delay: 300, duration: 2300 },
+  { src: STAR_ASSETS.purple, left: -7, top: 416, size: 24, drift: -16, rotate: -18, delay: 20, duration: 1900 },
+  { src: STAR_ASSETS.purple, left: 271, top: 589, size: 49, drift: 24, rotate: 16, delay: 180, duration: 2200 },
+  { src: STAR_ASSETS.purple, left: 102, top: 590, size: 49, drift: -20, rotate: -10, delay: 110, duration: 2100 },
+  { src: STAR_ASSETS.purple, left: 93, top: 106, size: 49, drift: 16, rotate: 14, delay: 80, duration: 1900 },
+  { src: STAR_ASSETS.green, left: 31, top: 319, size: 56, drift: -26, rotate: -14, delay: 260, duration: 2300 },
+  { src: STAR_ASSETS.green, left: 295, top: 289, size: 49, drift: 18, rotate: 18, delay: 140, duration: 2000 },
+  { src: STAR_ASSETS.green, left: 200, top: 135, size: 56, drift: -18, rotate: -18, delay: 210, duration: 2300 },
+  { src: STAR_ASSETS.yellow, left: 38, top: 223, size: 42, drift: 22, rotate: 12, delay: 60, duration: 2000 },
+  { src: STAR_ASSETS.yellow, left: 320, top: 155, size: 49, drift: 28, rotate: -12, delay: 310, duration: 2200 },
+  { src: STAR_ASSETS.yellow, left: 142, top: 427, size: 49, drift: -14, rotate: 18, delay: 230, duration: 2100 },
+  { src: STAR_ASSETS.pink, left: 150, top: 540, size: 49, drift: 18, rotate: -16, delay: 330, duration: 2300 },
+  { src: STAR_ASSETS.pink, left: 214, top: 347, size: 56, drift: -22, rotate: 10, delay: 40, duration: 2200 },
+  { src: STAR_ASSETS.pink, left: 360, top: 256, size: 33, drift: 16, rotate: 18, delay: 270, duration: 1900 },
+  { src: STAR_ASSETS.pink, left: 62, top: 45, size: 49, drift: -18, rotate: -12, delay: 150, duration: 2100 },
+  { src: STAR_ASSETS.orange, left: 252, top: 436, size: 49, drift: 26, rotate: 14, delay: 90, duration: 2200 },
+  { src: STAR_ASSETS.orange, left: 301, top: 460, size: 49, drift: -16, rotate: -18, delay: 380, duration: 2400 },
+  { src: STAR_ASSETS.blue, left: -7, top: 549, size: 56, drift: 22, rotate: 12, delay: 300, duration: 2300 },
 ] satisfies readonly MatchaStar[];
 
 function getMatchaStarStyle(star: MatchaStar): MatchaStarStyle {
@@ -193,11 +206,12 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
   const [draft, setDraft] = useState("");
   const [isMatchaMode, setIsMatchaMode] = useState(false);
   const [matchaBurstId, setMatchaBurstId] = useState(0);
+  const [activeTool, setActiveTool] = useState<DrawingTool>("brush");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const circleRef = useRef<HTMLDivElement>(null);
   const drawingRef = useRef(false);
   const hasStartedDrawingRef = useRef(false);
-  const lastRef = useRef<{ x: number; y: number } | null>(null);
+  const lastRef = useRef<Point | null>(null);
 
   useEffect(() => {
     onPhaseChange?.(phase);
@@ -251,17 +265,51 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
     return { x, y };
   };
 
-  const drawSegment = (from: { x: number; y: number }, to: { x: number; y: number }) => {
+  const applyToolStyle = (ctx: CanvasRenderingContext2D, tool: DrawingTool) => {
+    switch (tool) {
+      case "brush":
+        ctx.globalCompositeOperation = "source-over";
+        ctx.strokeStyle = "#ffffff";
+        ctx.fillStyle = "#ffffff";
+        ctx.lineWidth = 3.25;
+        return;
+      case "eraser":
+        ctx.globalCompositeOperation = "destination-out";
+        ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        ctx.lineWidth = 18;
+        return;
+      default: {
+        const exhaustiveTool: never = tool;
+        return exhaustiveTool;
+      }
+    }
+  };
+
+  const drawDot = (point: Point) => {
     const ctx = getCtx();
     if (!ctx) return;
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 3.25;
+    const radius = activeTool === "eraser" ? 9 : 1.625;
+    ctx.save();
+    applyToolStyle(ctx, activeTool);
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  };
+
+  const drawSegment = (from: Point, to: Point) => {
+    const ctx = getCtx();
+    if (!ctx) return;
+    ctx.save();
+    applyToolStyle(ctx, activeTool);
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
     ctx.beginPath();
     ctx.moveTo(from.x, from.y);
     ctx.lineTo(to.x, to.y);
     ctx.stroke();
+    ctx.restore();
   };
 
   const onPointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -270,11 +318,12 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
     const pt = clientToCanvas(e.clientX, e.clientY);
     if (!pt) return;
     drawingRef.current = true;
+    lastRef.current = pt;
     if (!hasStartedDrawingRef.current) {
       hasStartedDrawingRef.current = true;
       onDrawingStart?.();
     }
-    lastRef.current = pt;
+    drawDot(pt);
   };
 
   const onPointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
@@ -303,8 +352,8 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
   const submitPrompt = () => {
     const trimmed = draft.trim();
     if (!trimmed) return;
-    hasStartedDrawingRef.current = false;
     setPrompt(trimmed);
+    hasStartedDrawingRef.current = false;
     setPhase("draw");
   };
 
@@ -318,7 +367,14 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
   const circleColor = isMatchaMode ? "bg-[#8aa46a]" : "bg-[#8b6f52]";
   const toolbarColor = isMatchaMode ? "bg-[#e9f0d5]" : "bg-[#f7f4e7]";
   const inactiveToolColor = isMatchaMode ? "bg-[#d6e5bb]" : "bg-[#e8e4d4]";
-  const activeToolColor = isMatchaMode ? "bg-[#6f8750]" : "bg-[#6b7a4e]";
+  const activeToolColor = isMatchaMode ? "bg-[#6f8750]" : "bg-[#8A6F00]";
+  const getToolButtonClass = (tool: DrawingTool) => {
+    const isActive = activeTool === tool;
+    const backgroundColor = isActive ? activeToolColor : inactiveToolColor;
+    const textColor = isActive ? "text-white" : "text-[#4a4a4a]";
+
+    return `flex size-[60px] shrink-0 items-center justify-center rounded-full ${backgroundColor} ${textColor}`;
+  };
 
   return (
     <>
@@ -396,9 +452,9 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
               <Image
                 src="/assets/send-plane.svg"
                 alt=""
-                width={24}
-                height={24}
-                className="size-6 object-contain"
+                width={19}
+                height={16}
+                className="h-4 w-[19px] object-contain"
                 unoptimized
               />
             </button>
@@ -424,9 +480,10 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
               >
                 <button
                   type="button"
-                  className={`flex size-[60px] shrink-0 items-center justify-center rounded-full ${activeToolColor} text-white`}
-                  aria-pressed
+                  className={getToolButtonClass("brush")}
+                  aria-pressed={activeTool === "brush"}
                   aria-label="Brush"
+                  onClick={() => setActiveTool("brush")}
                 >
                   <BrushIcon />
                 </button>
@@ -441,9 +498,10 @@ export function GuessDrawingArea(props: GuessDrawingAreaProps = {}) {
                 </button>
                 <button
                   type="button"
-                  disabled
-                  className={`flex size-[60px] shrink-0 items-center justify-center rounded-full ${inactiveToolColor} text-[#4a4a4a] opacity-50`}
-                  aria-label="Eraser (coming soon)"
+                  className={getToolButtonClass("eraser")}
+                  aria-pressed={activeTool === "eraser"}
+                  aria-label="Eraser"
+                  onClick={() => setActiveTool("eraser")}
                 >
                   <EraserIcon />
                 </button>

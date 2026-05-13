@@ -40,7 +40,7 @@ function TextField({
 export function EntryScreen() {
   return (
     <div
-      className="relative min-h-dvh w-full overflow-x-hidden bg-white font-sans"
+      className="relative h-dvh min-h-dvh w-full overflow-hidden bg-white font-sans"
       data-node-id="2261:1306"
     >
       {/* Collage background */}
@@ -75,7 +75,7 @@ export function EntryScreen() {
 
         <div className="absolute left-[294px] top-[58px] flex h-[81.059px] w-[65px] items-center justify-center">
           <Image
-            src="/assets/star-1.svg"
+            src="/assets/star-pink.svg"
             alt=""
             width={60}
             height={75}
@@ -85,7 +85,7 @@ export function EntryScreen() {
         </div>
         <div className="absolute left-[359px] top-[102px] flex h-[50.059px] w-[40.142px] items-center justify-center">
           <Image
-            src="/assets/star-2.svg"
+            src="/assets/star-yellow.svg"
             alt=""
             width={36}
             height={45}
@@ -95,7 +95,7 @@ export function EntryScreen() {
         </div>
         <div className="absolute left-0 top-[216px] flex h-[50.059px] w-[40.142px] items-center justify-center">
           <Image
-            src="/assets/star-2.svg"
+            src="/assets/star-green.svg"
             alt=""
             width={36}
             height={45}
